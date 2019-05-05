@@ -11,7 +11,12 @@ parser.on('data', function (data) {
 
     if (numeric) {
         var numbers = numeric.map(Number);
+        var number = numbers[0];
 
-        eventHandler.publish('serial', numbers[0]);
+        if (string.includes('-')) {
+            number = number * -1;
+        }
+
+        eventHandler.publish('serial', number);
     }
 });

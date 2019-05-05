@@ -12,7 +12,7 @@ function setTime() {
         .then(function (res) {
             console.log(res.data);
         })
-        .catch((error) => {
+        .catch(function (error) {
             console.error(error)
         });
 }
