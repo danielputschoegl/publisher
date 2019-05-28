@@ -4,28 +4,28 @@ var stable = 0; // letzter stable Wert
 var last = null; // letzter übergebener Wert
 var timer = null;
 
-var time = 1000; // in ms
-var range = 5; // in *type* +- vom letzten stable Wert !!! auf Messbereich der Waage achten !!!
-var type = 'g'; // [g, %]
+var time = process.env.TIME; // in ms
+var range = process.env.RANGE; // in *type* +- vom letzten stable Wert !!! auf Messbereich der Waage achten !!!
+var type = process.env.RANGE_TYPE;
 
-eventHandler.subscribe('serial', function (data) {
+eventHandler.subscribe('serial', function (totalWeight) {
     if (last == null) {
-        last = data;
+        last = totalWeight;
     }
 
     if (!timer) {
-        setTimer(data);
+        setTimer(totalWeight);
     }
 
-    if (last !== data) {
+    if (last !== totalWeight) {
         clearTimeout(timer);
         timer = null;
     }
 
-    last = data;
+    last = totalWeight;
 });
 
-function setTimer(data) {
+function setTimer(totalWeight) {
     timer = setTimeout(function () {
         var lower = 0;
         var upper = 0;
@@ -48,8 +48,13 @@ function setTimer(data) {
                 break;
         }
 
-        if (data <= lower || upper <= data) {
-            stable = data;
+        if (totalWeight <= lower || upper <= totalWeight) {
+            var data = {
+                'totalWeight': totalWeight,
+                'weightChange': totalWeight - stable
+            };
+
+            stable = totalWeight;
             eventHandler.publish('stable', data);
         }
     }, time);

@@ -3,7 +3,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// require('./functions/time');
+var dotenv = require('dotenv');
+dotenv.config();
+
 require('./functions/read-serialport');
 require('./functions/data-cleaner');
 require('./functions/data-action');

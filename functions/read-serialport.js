@@ -20,3 +20,5 @@ parser.on('data', function (data) {
         eventHandler.publish('serial', number);
     }
 });
+
+//TODO Barcode-Reader

@@ -2,12 +2,13 @@ var eventHandler = require('../modules/event-handler');
 var axios = require('axios');
 
 eventHandler.subscribe('stable', function (data) {
-    var url = 'http://localhost:3000/weight';
-    var weight = {
-        'weight': data
-    };
+    var url = 'http://localhost:3000/admin/lorry/weight';
 
-    axios.post(url, weight)
+    data.lorryId = process.env.LORRY_ID;
+
+    console.log(data);
+
+    axios.post(url, data)
         .then(function (res) {
             console.log(res.data);
         })
