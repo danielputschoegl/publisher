@@ -5,10 +5,11 @@ var last = null; // letzter übergebener Wert
 var timer = null;
 
 var time = process.env.TIME; // in ms
-var range = process.env.RANGE; // in *type* +- vom letzten stable Wert !!! auf Messbereich der Waage achten !!!
+var range = parseInt(process.env.RANGE); // in *type* +- vom letzten stable Wert !!! auf Messbereich der Waage achten !!!
 var type = process.env.RANGE_TYPE;
 
 eventHandler.subscribe('serial', function (totalWeight) {
+
     if (last == null) {
         last = totalWeight;
     }
