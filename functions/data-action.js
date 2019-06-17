@@ -2,7 +2,7 @@ var eventHandler = require('../modules/event-handler');
 var axios = require('axios');
 
 eventHandler.subscribe('stable', function (data) {
-    var url = 'http://localhost:3000/admin/lorry/weight';
+    var url = 'http://192.168.43.196:3000/admin/lorry/weight';
 
     data.lorryId = process.env.LORRY_ID;
 
