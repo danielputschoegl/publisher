@@ -3,6 +3,7 @@ var ReadSerialport = require('serialport');
 var Readline = require('@serialport/parser-readline');
 var port = new ReadSerialport('/dev/ttyUSB0');
 
+// Only on complete data objects the parser is triggered. It is triggered several times per second.
 var parser = port.pipe(new Readline({delimiter: '\r\n'}));
 parser.on('data', function (data) {
     var buffer = new Buffer(data);
@@ -20,5 +21,3 @@ parser.on('data', function (data) {
         eventHandler.publish('serial', number);
     }
 });
-
-//TODO Barcode-Reader

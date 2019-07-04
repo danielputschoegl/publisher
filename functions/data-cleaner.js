@@ -1,11 +1,15 @@
+/**
+ * This file cleans the data from noise. The data must be stable a certain time (eg 1sec) and must lie in the range to compensate inaccuracies.
+ */
+
 var eventHandler = require('../modules/event-handler');
 
-var stable = 0; // letzter stable Wert
-var last = null; // letzter übergebener Wert
+var stable = 0; // last stable value
+var last = null; // last passed value
 var timer = null;
 
 var time = process.env.TIME; // in ms
-var range = parseInt(process.env.RANGE); // in *type* +- vom letzten stable Wert !!! auf Messbereich der Waage achten !!!
+var range = parseInt(process.env.RANGE); // in *type* +- from last stable value !!! Pay attention to the measuring range of the scales. !!!
 var type = process.env.RANGE_TYPE;
 
 eventHandler.subscribe('serial', function (totalWeight) {
